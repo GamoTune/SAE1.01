@@ -5,7 +5,7 @@ def menu_principale() ->int:
     Affiche le menu principal et renvoie le choix fait par l'utilisateur.
     
     Args:
-        (None): rien.
+        (None): Aucun argument n'est nécessaire pour cette preocédure.
 
     Returns:
         choix (int): Le choix de l'utilisateur.
@@ -56,7 +56,7 @@ def menu_score() -> int:
     Affiche le menu des scores et renvoie le choix fait par l'utilisateur.
     
     Args:
-        (None): rien.
+        (None): Aucun argument n'est nécessaire pour cette preocédure.
 
     Returns:
         choix (int): Le choix de l'utilisateur.
