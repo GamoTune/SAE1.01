@@ -92,8 +92,3 @@ def menu_score() -> int:
     print()
     
     return choix
-
-
-
-print(menu_principale())
-print(menu_score())
