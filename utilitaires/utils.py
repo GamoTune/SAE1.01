@@ -2,10 +2,11 @@
 # Ce fichier contient les fonctions utilitaires qui seront utilisées dans le programme #
 ########################################################################################
 
+import os
 
 
 #Fonction pour demander le nom des joueurs
-def login_joueur() ->tuple[str, str] :
+def login_joueur() -> tuple[str, str]:
     """
     Procédure servant à attribuer un nom aux joueurs
     Args:
@@ -15,9 +16,16 @@ def login_joueur() ->tuple[str, str] :
         (tuple[str, str]) : tuple contenant les noms des 2 joueurs.
 
     """
+    
+    #Déclaration des variables
     joueur1 : str
     joueur2 : str
 
+
+    #Saisie des noms des joueurs
+    print()
+    print("/---------------------------------------\\")
+    print("      Saisie des noms des joueurs")
     joueur1 = str(input("Saisir le prénom du premier joueur : "))
     joueur2 = str(input("Saisir le prénom du second joueur : "))
     
@@ -41,3 +49,19 @@ def input_entier(borneMin:int, borneMax:int, message:str) -> int:
     while nombre < borneMin or nombre > borneMax:
         nombre = int(input(message))
     return nombre
+
+
+def clear_console():
+    """
+    Procédure pour effacer la console
+    Args:
+        (None) : rien.
+
+    Returns:
+        (None) : rien.
+
+    """
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
