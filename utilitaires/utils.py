@@ -10,7 +10,7 @@ def login_joueur() -> tuple[str, str]:
     """
     Procédure servant à attribuer un nom aux joueurs
     Args:
-        (None) : rien.
+        (None) : Ne prend pas de paramètres.
 
     Returns:
         (tuple[str, str]) : tuple contenant les noms des 2 joueurs.
@@ -55,10 +55,10 @@ def clear_console():
     """
     Procédure pour effacer la console
     Args:
-        (None) : rien.
+        (None) : Ne prend pas de paramètres.
 
     Returns:
-        (None) : rien.
+        (None) : Ne retourne rien.
 
     """
     if os.name == 'nt':
