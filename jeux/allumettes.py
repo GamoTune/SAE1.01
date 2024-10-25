@@ -85,7 +85,7 @@ def tour(joueur:str, nbrAllumettes:int) -> int:
     print()
     print(f"{joueur} c'est à votre tour.")
     print(f"Il reste {nbrAllumettes} allumettes.")
-    nbrAllumettesRetirees = input_entier(1, 3, "Combien d'allumettes voulez-vous retirer, 1, 2 ou 3 : ")
+    nbrAllumettesRetirees = input_entier(1, 3, "Combien d'allumettes voulez-vous retirer, 1, 2 ou 3 : ", "ERROR")
 
     return nbrAllumettesRetirees
 

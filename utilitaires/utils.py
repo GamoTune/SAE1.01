@@ -32,13 +32,14 @@ def login_joueur() -> tuple[str, str]:
     return (joueur1, joueur2)
 
 
-def input_entier(borneMin:int, borneMax:int, message:str) -> int:
+def input_entier(borneMin:int, borneMax:int, message:str, erreur:str) -> int:
     """
     Fonction pour vérifier si l'entrée utilisateur est un entier et qu'il est compris entre les bornes données
     Args:
         borneMin(int): Borne inférieure.
         borneMax(int): Borne supérieure.
         message(str): Message à afficher.
+        erreur(str): Message d'erreur à afficher.
 
     Returns:
         nombre(int): Nombre entré par l'utilisateur.
@@ -47,6 +48,7 @@ def input_entier(borneMin:int, borneMax:int, message:str) -> int:
     nombre: int
     nombre = int(input(message))
     while nombre < borneMin or nombre > borneMax:
+        print(erreur)
         nombre = int(input(message))
     return nombre
 
