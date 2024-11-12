@@ -63,7 +63,4 @@ def clear_console():
         (None) : Ne retourne rien.
 
     """
-    if os.name == 'nt':
-        os.system('cls')
-    else:
-        os.system('clear')
+    print("\033c", end="")

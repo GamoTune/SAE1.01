@@ -3,7 +3,6 @@ import sys, os
 sys.path.append("./utilitaires")
 from utils import input_entier, login_joueur, clear_console #type: ignore
 
-
 #Programme principal du jeu
 def allumettes() -> None:
     """
@@ -21,9 +20,19 @@ def allumettes() -> None:
     nomJoueur2: str
 
     nbrAllumettes: int = 20
+    nbrAllumettesJoueur1: int = 0 #Nombre d'allumettes retirées par le joueur 1
+    nbrAllumettesJoueur2: int = 0 #Nombre d'allumettes retirées par le joueur 2
+
     nbrCoupsJoueur1: int = 0
     nbrCoupsJoueur2: int = 0
+
     dernierJoueur: str = ""
+    avantDernierJoueur: str = ""
+
+    scoreJoueur1: float = 0
+    scoreJoueur2: float = 0
+
+    differenceScore: int = 0
 
     nomJoueur1, nomJoueur2 = login_joueur()
 
@@ -40,18 +49,33 @@ def allumettes() -> None:
         #Tour du joueur 1
         if nbrAllumettes > 0:
             dernierJoueur = nomJoueur1
+            avantDernierJoueur = nomJoueur2
             nbrAllumettes -= tour(nomJoueur1, nbrAllumettes)
             nbrCoupsJoueur1 += 1
         
         #Tour du joueur 2
         if nbrAllumettes > 0:
             dernierJoueur = nomJoueur2
+            avantDernierJoueur = nomJoueur1
             nbrAllumettes -= tour(nomJoueur2, nbrAllumettes)
             nbrCoupsJoueur2 += 1
     
+
     #Calcul du score
 
     
+
+    #Calcul du score du joueur 1
+
+
+
+
+
+    
+    print()
+    print(f"Score de {nomJoueur1} : {scoreJoueur1}")
+    print(f"Score de {nomJoueur2} : {scoreJoueur2}")
+    print()
 
 
 
@@ -64,6 +88,23 @@ def allumettes() -> None:
         print(f"Bravo {nomJoueur2} vous avez gagné en {nbrCoupsJoueur2} coups.")
         print(f"{nomJoueur1} vous avez perdu en {nbrCoupsJoueur1} coups.")
     print()
+
+
+
+
+def calcul_score(nbrAllumettes:int, nbrAllumettesJoueur:int, nbrCoups:int, nbrCoupsOptimaux:int, ) -> float:
+    """
+    Cette fonction permet de calculer le score d'un joueur.
+
+    Args:
+        nbrAllumettes (int): Le nombre d'allumettes au début du jeu.
+        nbrAllumettesJoueur (int): Le nombre d'allumettes retirées par le joueur.
+        nbrCoups (int): Le nombre de coups joués par le joueur.
+
+    Returns:
+        (float): Le score du joueur.
+    """
+    return (nbrAllumettes - nbrAllumettesJoueur) * (nbrCoupsOptimaux / nbrCoups)
 
 
 #Fonction pour afficher le tour du joueur
@@ -81,11 +122,16 @@ def tour(joueur:str, nbrAllumettes:int) -> int:
 
     #Déclaration des variables
     nbrAllumettesRetirees: int = 0
+    limite_allumettes: int = 3
+
+    #Calcule du nombre d'allumettes restantes
+    if nbrAllumettes < 3:
+        limite_allumettes = nbrAllumettes
 
     print()
     print(f"{joueur} c'est à votre tour.")
     print(f"Il reste {nbrAllumettes} allumettes.")
-    nbrAllumettesRetirees = input_entier(1, 3, "Combien d'allumettes voulez-vous retirer, 1, 2 ou 3 : ", "ERROR")
+    nbrAllumettesRetirees = input_entier(1, limite_allumettes, f"Combien d'allumettes voulez-vous retirer, 1, 2 ou {limite_allumettes} : ", f"Veillez saisir un nombre entre 1 et {limite_allumettes}.")
 
     return nbrAllumettesRetirees
 
