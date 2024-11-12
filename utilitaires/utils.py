@@ -27,8 +27,13 @@ def login_joueur() -> tuple[str, str]:
     print("/---------------------------------------\\")
     print("      Saisie des noms des joueurs")
     joueur1 = str(input("Saisir le prénom du premier joueur : "))
+    while joueur1 == "" :
+        joueur1=str(input("Veuillez rentrer un prénom valide : "))
+
     joueur2 = str(input("Saisir le prénom du second joueur : "))
-    
+    while joueur2 == "" :
+        joueur2=str(input("Veuillez rentrer un prénom valide : "))
+
     return (joueur1, joueur2)
 
 
