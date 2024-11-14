@@ -50,8 +50,15 @@ def input_entier(borneMin:int, borneMax:int, message:str, erreur:str) -> int:
         nombre(int): Nombre entré par l'utilisateur.
     """
 
+    input_: str
     nombre: int
-    nombre = int(input(message))
+
+    input_ = input(message)
+    while not input_.isdigit():
+        print(erreur)
+        input_ = input(message)
+    nombre = int(input_)
+
     while nombre < borneMin or nombre > borneMax:
         print(erreur)
         nombre = int(input(message))

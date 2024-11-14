@@ -1,3 +1,7 @@
+import sys, os
+sys.path.append("./utilitaires")
+from utils import input_entier, login_joueur, clear_console #type: ignore
+
 #Menu des choix principaux
 
 def menu_principale() ->int:
@@ -15,8 +19,8 @@ def menu_principale() ->int:
     choix: int
     
     print()
-    print("/------------------------------\\")
-    print("      Bienvenu dans le jeu")
+    print("/-----------------------------------------------------------\\")
+    print("                   Bienvenu dans le jeu")
     print()
     print("Veuillez faire un choix :")
     print()
@@ -25,23 +29,15 @@ def menu_principale() ->int:
     print("3. Jeu du Morpion")
     print()
     print("4. Voir les scores")
+    print("5. Voir les règles")
     print()
-    print("5. Quitter")
-    print("\\------------------------------/")
+    print("6. Quitter")
+    print("\\-----------------------------------------------------------/")
     print()
     #Récupération du choix de l'utilisateur
-    choix = int(input("Votre choix : "))
-
-    #Test de validité
-    while choix < 1 or choix > 5:
-        print("Veuillez choisir l'un des choix possibles")
-        choix = int(input("Votre choix : "))
-    
-    print()
+    choix = input_entier(0, 6, "Votre choix : ", "Veuillez choisir l'un des choix possibles")
 
     return choix
-
-
 
 
 

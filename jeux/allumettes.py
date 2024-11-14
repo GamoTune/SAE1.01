@@ -19,6 +19,7 @@ def allumettes() -> None:
     nomJoueur1: str
     nomJoueur2: str
 
+    nbrAllumettesDepart: int = 20
     nbrAllumettes: int = 20
     nbrAllumettesJoueur1: int = 0 #Nombre d'allumettes retirées par le joueur 1
     nbrAllumettesJoueur2: int = 0 #Nombre d'allumettes retirées par le joueur 2
@@ -28,11 +29,11 @@ def allumettes() -> None:
 
     dernierJoueur: str = ""
     avantDernierJoueur: str = ""
+    vainqueur: str = ""
 
     scoreJoueur1: float = 0
     scoreJoueur2: float = 0
 
-    differenceScore: int = 0
 
     nomJoueur1, nomJoueur2 = login_joueur()
 
@@ -59,40 +60,42 @@ def allumettes() -> None:
             avantDernierJoueur = nomJoueur1
             nbrAllumettes -= tour(nomJoueur2, nbrAllumettes)
             nbrCoupsJoueur2 += 1
+
+        if nbrAllumettes == 0:
+            vainqueur = avantDernierJoueur
     
 
     #Calcul du score
 
-    
-
-    #Calcul du score du joueur 1
-
-
-
-
-
-    
-    print()
-    print(f"Score de {nomJoueur1} : {scoreJoueur1}")
-    print(f"Score de {nomJoueur2} : {scoreJoueur2}")
-    print()
-
+    if vainqueur == nomJoueur1:
+        scoreJoueur1 = calcul_score(nbrAllumettesDepart, nbrAllumettesJoueur1, nbrCoupsJoueur1, 1)
+        scoreJoueur2 = calcul_score(nbrAllumettesDepart, nbrAllumettesJoueur2, nbrCoupsJoueur2, 0)
+    else:
+        scoreJoueur1 = calcul_score(nbrAllumettesDepart, nbrAllumettesJoueur1, nbrCoupsJoueur1, 0)
+        scoreJoueur2 = calcul_score(nbrAllumettesDepart, nbrAllumettesJoueur2, nbrCoupsJoueur2, 1)
 
 
     #Fin du jeu
     print()
-    if dernierJoueur == nomJoueur2:
+    print("/-----------------------------------------------------------\\")
+    print("                        Fin du jeu")
+    print()
+    if vainqueur == nomJoueur1:
         print(f"Bravo {nomJoueur1} vous avez gagné en {nbrCoupsJoueur1} coups.")
         print(f"{nomJoueur2} vous avez perdu en {nbrCoupsJoueur2} coups.")
     else:
         print(f"Bravo {nomJoueur2} vous avez gagné en {nbrCoupsJoueur2} coups.")
         print(f"{nomJoueur1} vous avez perdu en {nbrCoupsJoueur1} coups.")
     print()
+    print(f"Score de {nomJoueur1} : {scoreJoueur1}")
+    print(f"Score de {nomJoueur2} : {scoreJoueur2}")
+    print()
+    print("\\-----------------------------------------------------------/")
 
 
 
 
-def calcul_score(nbrAllumettes:int, nbrAllumettesJoueur:int, nbrCoups:int, nbrCoupsOptimaux:int, ) -> float:
+def calcul_score(nbrAllumettes:int, nbrAllumettesJoueur:int, nbrCoups:int, victoir:int) -> float:
     """
     Cette fonction permet de calculer le score d'un joueur.
 
@@ -104,7 +107,17 @@ def calcul_score(nbrAllumettes:int, nbrAllumettesJoueur:int, nbrCoups:int, nbrCo
     Returns:
         (float): Le score du joueur.
     """
-    return (nbrAllumettes - nbrAllumettesJoueur) * (nbrCoupsOptimaux / nbrCoups)
+
+    #Déclaration des variables
+
+    score: float = 0
+    differenceScore: int = 0
+
+    #Calcul du score
+    differenceScore = nbrAllumettes - nbrAllumettesJoueur
+    score = (differenceScore / nbrCoups) + (victoir * 5)
+
+    return round(score,2)
 
 
 #Fonction pour afficher le tour du joueur
@@ -134,8 +147,3 @@ def tour(joueur:str, nbrAllumettes:int) -> int:
     nbrAllumettesRetirees = input_entier(1, limite_allumettes, f"Combien d'allumettes voulez-vous retirer, 1, 2 ou {limite_allumettes} : ", f"Veillez saisir un nombre entre 1 et {limite_allumettes}.")
 
     return nbrAllumettesRetirees
-
-
-
-
-allumettes()
