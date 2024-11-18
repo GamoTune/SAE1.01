@@ -2,7 +2,7 @@
 # Ce fichier contient les fonctions utilitaires qui seront utilisées dans le programme #
 ########################################################################################
 
-import os
+import os, pickle
 
 
 #Fonction pour demander le nom des joueurs
@@ -65,7 +65,7 @@ def input_entier(borneMin:int, borneMax:int, message:str, erreur:str) -> int:
     return nombre
 
 
-def clear_console():
+def clear_console() -> None:
     """
     Procédure pour effacer la console
     Args:
@@ -76,3 +76,13 @@ def clear_console():
 
     """
     print("\033c", end="")
+
+
+def sauvegarde_score(chemain:str, data:dict) -> None:
+    with open(chemain, "wb") as fichier:
+        pickle.dump(data, fichier)
+
+def charger_score(chemain:str) -> dict:
+    with open(chemain, "rb") as fichier:
+        data = pickle.load(fichier)
+    return data
