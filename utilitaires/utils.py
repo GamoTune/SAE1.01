@@ -78,11 +78,11 @@ def clear_console() -> None:
     print("\033c", end="")
 
 
-def sauvegarde_score(chemain:str, data:dict) -> None:
-    with open(chemain, "wb") as fichier:
+def sauvegarde_score(chemin:str, data:dict) -> None:
+    with open(chemin, "wb") as fichier:
         pickle.dump(data, fichier)
 
-def charger_score(chemain:str) -> dict:
-    with open(chemain, "rb") as fichier:
+def charger_score(chemin:str) -> dict:
+    with open(chemin, "rb") as fichier:
         data = pickle.load(fichier)
     return data
