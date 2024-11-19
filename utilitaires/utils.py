@@ -78,11 +78,112 @@ def clear_console() -> None:
     print("\033c", end="")
 
 
-def sauvegarde_score(chemin:str, data:dict) -> None:
+
+#La fonction sauvegarde_score_joueur permet de sauvegarder les scores d'un joueur sur un jeu en particulier
+def sauvegarde_score_joueur(jeu:str, joueur:str, valeur:float) -> None:
+    """
+    Procédure pour sauvegarder les scores d'un joueur
+    Args:
+        jeu(str): Nom du jeu.
+        joueur(str): Nom du joueur.
+        valeur(float): Valeur du score.
+
+    Returns:
+        (None) : Ne retourne rien.
+    """
+
+    #Déclaration des variables
+    chemin: str
+    data: dict
+    scoresJoueurs: list
+
+    #Chargement des scores
+    chemin = os.getcwd() + "/scores/" + jeu + ".txt"
+    data = charger_score(jeu)
+
+    #Chargement des scores du joueur
+    scoresJoueurs = charger_score_joueur(jeu, joueur)
+
+    #Sauvegarde du score
+    scoresJoueurs.append(valeur)
+    data[joueur] = scoresJoueurs
+
+    #Sauvegarde des scores
     with open(chemin, "wb") as fichier:
         pickle.dump(data, fichier)
 
-def charger_score(chemin:str) -> dict:
-    with open(chemin, "rb") as fichier:
-        data = pickle.load(fichier)
+
+
+#La fonction charger_score permet de charger les scores d'un jeu en particulier
+def charger_score(jeu:str) -> dict:
+    """
+    Fonction pour charger les scores d'un jeu en particulier
+    Args:
+        jeu(str): Nom du jeu.
+    
+    Returns:
+        data(dict): Dictionnaire contenant les scores.
+    """
+
+    #Déclaration des variables
+    chemin: str
+    data: dict
+
+    #Chargement des scores
+    chemin = os.getcwd() + "/scores/" + jeu + ".txt"
+    if os.path.exists(chemin):
+        with open(chemin, "rb") as fichier:
+            data = pickle.load(fichier)
+    else: #Si le fichier n'existe pas, on renvoie un dictionnaire vide
+        data = {}
     return data
+
+#La fonction charger_score_joueur permet de charger les scores d'un joueur sur un jeu en particulier
+def charger_score_joueur(jeu:str, joueur:str) -> list:
+    """
+    Fonction pour charger les scores d'un joueur sur un jeu en particulier
+    Args:
+        jeu(str): Nom du jeu.
+        joueur(str): Nom du joueur.
+    
+    Returns:
+        scoreJoueurs(dict): Dictionnaire contenant les scores du joueur.
+    """
+
+    #Déclaration des variables
+    data: dict
+    scoreJoueurs: list
+
+    #Chargement des scores
+    data = charger_score(jeu)
+
+    #Vérification de l'existence du joueur
+    if joueur in data:
+        scoreJoueurs = data[joueur]
+    else: #Si le joueur n'existe pas, on renvoie une liste vide
+        scoreJoueurs = []
+
+    #Retourne le dictionnaire des scores du joueur (vide si le joueur n'existe pas)
+    return scoreJoueurs
+
+
+
+def reset_score():
+    """
+    Procédure pour réinitialiser les scores
+    Args:
+        (None) : Ne prend pas de paramètres.
+
+    Returns:
+        (None) : Ne retourne rien.
+    """
+
+    #Déclaration des variables
+    chemin: str
+
+    #Réinitialisation des scores
+    chemin = os.getcwd() + "/scores/"
+    for fichier in os.listdir(chemin):
+        with open(chemin + fichier, "wb") as fichier:
+            pickle.dump({}, fichier)
+    print("Les scores ont été réinitialisés avec succès !")

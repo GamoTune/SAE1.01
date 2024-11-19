@@ -109,13 +109,15 @@ def calcul_score(nbrAllumettes:int, nbrAllumettesJoueur:int, nbrCoups:int, victo
     """
 
     #Déclaration des variables
-
     score: float = 0
     differenceScore: int = 0
 
     #Calcul du score
     differenceScore = nbrAllumettes - nbrAllumettesJoueur
-    score = (differenceScore / nbrCoups) + (victoir * 5)
+    if nbrCoups != 0:
+        score = (differenceScore / nbrCoups) + (victoir * 5)
+    else:
+        score = 0
 
     return round(score,2)
 
