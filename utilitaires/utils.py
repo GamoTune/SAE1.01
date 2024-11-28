@@ -187,3 +187,45 @@ def reset_score():
         with open(chemin + fichier, "wb") as fichier:
             pickle.dump({}, fichier)
     print("Les scores ont été réinitialisés avec succès !")
+
+
+
+
+
+def verification_type(value: str, type_:type) -> bool:
+    """
+    Fonction pour vérifier si la valeur est du type demandé
+    Args:
+        value(str): Valeur à vérifier.
+        type_(type): Type demandé.
+
+    Returns:
+        (bool): True si la valeur est du type demandé, False sinon.
+    """
+
+    #Déclaration des variables
+
+    return isinstance(value, type_)
+
+
+def input_choix(choix:list[str], message:str, erreur:str) -> str:
+    """
+    Fonction pour vérifier si l'entrée utilisateur est un choix valide
+    Args:
+        choix(list[str]): Liste des choix possibles.
+        message(str): Message à afficher.
+        erreur(str): Message d'erreur à afficher.
+
+    Returns:
+        nombre(int): Nombre entré par l'utilisateur.
+    """
+
+    #Déclaration des variables
+    input_: str
+
+    #Saisie de l'entrée utilisateur
+    input_ = input(message)
+    while input_ not in choix:
+        print(erreur)
+        input_ = input(message)
+    return input_

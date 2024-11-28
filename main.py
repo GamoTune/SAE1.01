@@ -5,6 +5,7 @@ sys.path.append("utilitaires")
 sys.path.append("menus")
 
 from allumettes import allumettes #type: ignore
+from morpion import morpion #type: ignore
 
 from utils import input_entier, login_joueur, clear_console, charger_score#type: ignore 
 from menus import menu_principale, menu_score, affichage_score #type: ignore
@@ -58,7 +59,7 @@ if __name__ == "__main__":
                 boucle_de_jeu = True
             case 3:
                 while boucle_de_jeu:
-                    #morpion()
+                    morpion()
                     boucle_de_jeu = rejouer()
                 boucle_de_jeu = True
             case 4: 
