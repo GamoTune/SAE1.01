@@ -86,3 +86,4 @@ if __name__ == "__main__":
                 clear_console()
                 print("Erreur de choix")
     clear_console()
+    print("Merci d'avoir joué !")

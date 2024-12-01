@@ -23,6 +23,7 @@ def login_joueur() -> tuple[str, str]:
 
 
     #Saisie des noms des joueurs
+    clear_console()
     print()
     print("/---------------------------------------\\")
     print("      Saisie des noms des joueurs")
@@ -78,6 +79,26 @@ def clear_console() -> None:
     print("\033c", end="")
 
 
+def sauvegarde_data(jeu:str, data:dict) -> None:
+    """
+    Procédure pour sauvegarder les données d'un jeu
+    Args:
+        jeu(str): Nom du jeu.
+        data(dict): Dictionnaire contenant les données.
+
+    Returns:
+        (None) : Ne retourne rien.
+    """
+    
+    #Déclaration des variables
+    chemin: str
+
+    #Sauvegarde des données
+    chemin = os.getcwd() + "/scores/" + jeu + ".txt"
+    with open(chemin, "wb") as fichier:
+        pickle.dump(data, fichier)
+
+
 
 #La fonction sauvegarde_score_joueur permet de sauvegarder les scores d'un joueur sur un jeu en particulier
 def sauvegarde_score_joueur(jeu:str, joueur:str, valeur:float) -> None:
@@ -93,12 +114,10 @@ def sauvegarde_score_joueur(jeu:str, joueur:str, valeur:float) -> None:
     """
 
     #Déclaration des variables
-    chemin: str
     data: dict
     scoresJoueurs: list
 
     #Chargement des scores
-    chemin = os.getcwd() + "/scores/" + jeu + ".txt"
     data = charger_score(jeu)
 
     #Chargement des scores du joueur
@@ -109,8 +128,7 @@ def sauvegarde_score_joueur(jeu:str, joueur:str, valeur:float) -> None:
     data[joueur] = scoresJoueurs
 
     #Sauvegarde des scores
-    with open(chemin, "wb") as fichier:
-        pickle.dump(data, fichier)
+    sauvegarde_data(jeu, data)
 
 
 
@@ -132,8 +150,13 @@ def charger_score(jeu:str) -> dict:
     #Chargement des scores
     chemin = os.getcwd() + "/scores/" + jeu + ".txt"
     if os.path.exists(chemin):
-        with open(chemin, "rb") as fichier:
-            data = pickle.load(fichier)
+        try:
+            with open(chemin, "rb") as fichier:
+                data = pickle.load(fichier)
+        except:
+            data = {}
+            sauvegarde_data(jeu, data)
+
     else: #Si le fichier n'existe pas, on renvoie un dictionnaire vide
         data = {}
     return data
@@ -183,9 +206,8 @@ def reset_score():
 
     #Réinitialisation des scores
     chemin = os.getcwd() + "/scores/"
-    for fichier in os.listdir(chemin):
-        with open(chemin + fichier, "wb") as fichier:
-            pickle.dump({}, fichier)
+    for fichier in os.listdir(chemin): #On parcourt tous les fichiers de scores pour les réinitialiser avec un dictionnaire vide
+        sauvegarde_data(fichier, {})
     print("Les scores ont été réinitialisés avec succès !")
 
 
@@ -202,8 +224,6 @@ def verification_type(value: str, type_:type) -> bool:
     Returns:
         (bool): True si la valeur est du type demandé, False sinon.
     """
-
-    #Déclaration des variables
 
     return isinstance(value, type_)
 

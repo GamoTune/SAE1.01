@@ -67,6 +67,14 @@ def morpion() -> None:
 
 
     #Calcul du score
+    scoreJoueur1 = calcul_score()
+    scoreJoueur2 = calcul_score()
+
+    #Détermination du vainqueur
+    if not boucle:
+        vainqueur = dernierJoueur
+    else:
+        vainqueur = "Personne"
 
 
 
@@ -80,9 +88,13 @@ def morpion() -> None:
     if vainqueur == nomJoueur1:
         print(f"Bravo {nomJoueur1} vous avez gagné en {nbrCoupsJoueur1} coups.")
         print(f"{nomJoueur2} vous avez perdu en {nbrCoupsJoueur2} coups.")
-    else:
+    elif vainqueur == nomJoueur2:
         print(f"Bravo {nomJoueur2} vous avez gagné en {nbrCoupsJoueur2} coups.")
         print(f"{nomJoueur1} vous avez perdu en {nbrCoupsJoueur1} coups.")
+    else:
+        print("Match nul")
+        print(f"{nomJoueur1} a joué {nbrCoupsJoueur1} coups et à gagné {scoreJoueur1} points.")
+        print(f"{nomJoueur2} a joué {nbrCoupsJoueur2} coups et à gagné {scoreJoueur2} points.")
     print()
     print(f"Score de {nomJoueur1} : {scoreJoueur1}")
     print(f"Score de {nomJoueur2} : {scoreJoueur2}")

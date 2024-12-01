@@ -106,6 +106,7 @@ def affichage_score(jeu: str):
     clear_console()
     if scores == {}:
         print("Aucun score pour ce jeu")
+        print()
     else:
         print("/------------------------------\\")
         print("Scores du jeu :", jeu)
@@ -118,7 +119,7 @@ def affichage_score(jeu: str):
         print()
         print("\\------------------------------/")
         print()
-        print("Appuyez sur Entrée pour continuer", end="")
-        input() #Pause pour laisser le temps à l'utilisateur de lire les scores
+    print("Appuyez sur Entrée pour continuer", end="")
+    input() #Pause pour laisser le temps à l'utilisateur de lire les scores
 
 
