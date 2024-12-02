@@ -1,7 +1,7 @@
 #Importation des fonctions
 import sys, os
 sys.path.append("./utilitaires")
-from utils import input_entier, login_joueur, clear_console #type: ignore
+from utils import input_entier, login_joueur, clear_console, sauvegarde_score_joueur #type: ignore
 
 #Programme principal du jeu
 def allumettes() -> None:
@@ -91,6 +91,10 @@ def allumettes() -> None:
     print(f"Score de {nomJoueur2} : {scoreJoueur2}")
     print()
     print("\\-----------------------------------------------------------/")
+
+    #Sauvegarde des scores
+    sauvegarde_score_joueur("allumettes", nomJoueur1, scoreJoueur1)
+    sauvegarde_score_joueur("allumettes", nomJoueur2, scoreJoueur2)
 
 
 

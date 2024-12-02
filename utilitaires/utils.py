@@ -20,20 +20,30 @@ def login_joueur() -> tuple[str, str]:
     #Déclaration des variables
     joueur1 : str
     joueur2 : str
+    boucle: bool = True
 
 
     #Saisie des noms des joueurs
     clear_console()
-    print()
-    print("/---------------------------------------\\")
-    print("      Saisie des noms des joueurs")
-    joueur1 = str(input("Saisir le prénom du premier joueur : "))
-    while joueur1 == "" :
-        joueur1=str(input("Veuillez rentrer un prénom valide : "))
 
-    joueur2 = str(input("Saisir le prénom du second joueur : "))
-    while joueur2 == "" :
-        joueur2=str(input("Veuillez rentrer un prénom valide : "))
+    while boucle:
+        print()
+        print("/---------------------------------------\\")
+        print("      Saisie des noms des joueurs")
+        print()
+        joueur1 = str(input("Saisir le prénom du premier joueur : "))
+        while joueur1 == "" :
+            joueur1=str(input("Veuillez rentrer un prénom valide : "))
+
+        joueur2 = str(input("Saisir le prénom du second joueur : "))
+        while joueur2 == "" :
+            joueur2=str(input("Veuillez rentrer un prénom valide : "))
+        
+        if joueur1 == joueur2:
+            clear_console()
+            print("Les noms des joueurs ne peuvent pas être identiques.")
+        else:
+            boucle = False
 
     return (joueur1, joueur2)
 
@@ -53,6 +63,7 @@ def input_entier(borneMin:int, borneMax:int, message:str, erreur:str) -> int:
 
     input_: str
     nombre: int
+    boucle: bool = True
 
     input_ = input(message)
     while not input_.isdigit():
@@ -60,9 +71,17 @@ def input_entier(borneMin:int, borneMax:int, message:str, erreur:str) -> int:
         input_ = input(message)
     nombre = int(input_)
 
-    while nombre < borneMin or nombre > borneMax:
-        print(erreur)
-        nombre = int(input(message))
+    while boucle:
+        if input_.isdigit():
+            nombre = int(input_)
+            if borneMin <= nombre <= borneMax:
+                boucle = False
+            else:
+                print(erreur)
+                input_ = input(message)
+        else:
+            print(erreur)
+            nombre = int(input(message))
     return nombre
 
 
