@@ -113,7 +113,7 @@ def sauvegarde_data(jeu:str, data:dict) -> None:
     chemin: str
 
     #Sauvegarde des données
-    chemin = os.getcwd() + "/scores/" + jeu + ".txt"
+    chemin = os.getcwd() + "/scores/" + jeu + ".bin"
     with open(chemin, "wb") as fichier:
         pickle.dump(data, fichier)
 
@@ -167,7 +167,7 @@ def charger_score(jeu:str) -> dict:
     data: dict
 
     #Chargement des scores
-    chemin = os.getcwd() + "/scores/" + jeu + ".txt"
+    chemin = os.getcwd() + "/scores/" + jeu + ".bin"
     if os.path.exists(chemin):
         try:
             with open(chemin, "rb") as fichier:
