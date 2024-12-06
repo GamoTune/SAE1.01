@@ -268,3 +268,54 @@ def input_choix(choix:list[str], message:str, erreur:str) -> str:
         print(erreur)
         input_ = input(message)
     return input_
+
+
+
+def tri_de_liste(tab: list) -> list:
+    """
+    Fonction pour trier une liste par insertion
+    Args:
+        tab(list): Liste à trier.
+
+    Returns:
+        tab(list): Liste triée.
+    """
+
+    #Déclaration des variables
+    n: int
+    i: int
+    cle: int
+    j: int
+
+    #Tri par insertion
+    n = len(tab)
+    for i in range(1, n):
+        cle = tab[i]
+        j = i - 1
+        while j >= 0 and tab[j] > cle:
+            tab[j + 1] = tab[j]
+            j = j - 1
+        tab[j + 1] = cle
+    return tab
+
+
+def trier_scores(scores: dict) -> dict:
+    """
+    Fonction pour trier un dictionnaire de scores par ordre décroissant des scores
+    Args:
+        scores(dict): Dictionnaire contenant les scores des joueurs.
+
+    Returns:
+        dict: Dictionnaire trié par ordre décroissant des scores.
+    """
+    # Calculer la somme des scores pour chaque joueur
+    scores_sommes = {joueur: sum(score) for joueur, score in scores.items()}
+    
+    # Trier les joueurs par ordre décroissant des scores
+    joueurs_tries = tri_de_liste(list(scores_sommes.items()))
+    joueurs_tries.reverse()  # Inverser pour obtenir l'ordre décroissant
+
+    # Reconstituer le dictionnaire trié
+    scores_tries = {joueur: scores[joueur] for joueur, _ in joueurs_tries}
+    
+    return scores_tries

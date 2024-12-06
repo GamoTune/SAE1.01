@@ -102,6 +102,11 @@ def affichage_score(jeu: str):
 
     scores = charger_score(jeu)
 
+    for joueur, score in scores.items():
+            for valeur in score:
+                score_total += valeur
+            print(joueur, ":", score_total, "points en", len(score), "parties")
+
     #Affichage des scores
     clear_console()
     if scores == {}:
@@ -111,15 +116,10 @@ def affichage_score(jeu: str):
         print("/------------------------------\\")
         print("Scores du jeu :", jeu)
         print()
-        for joueur, score in scores.items():
-            for valeur in score:
-                score_total += valeur
-            print(joueur, ":", score_total, "points en", len(score), "parties")
+        
 
         print()
         print("\\------------------------------/")
         print()
     print("Appuyez sur Entrée pour continuer", end="")
     input() #Pause pour laisser le temps à l'utilisateur de lire les scores
-
-

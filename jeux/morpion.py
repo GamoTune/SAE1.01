@@ -1,7 +1,7 @@
 #Importation des fonctions
 import sys, os
 sys.path.append("./utilitaires")
-from utils import input_entier, login_joueur, clear_console, input_choix #type: ignore
+from utils import input_entier, login_joueur, clear_console, input_choix, sauvegarde_score_joueur #type: ignore
 
 #Programme principal du jeu
 def morpion() -> None:
@@ -65,16 +65,23 @@ def morpion() -> None:
         boucle = verification_jeu_continue(grille)
 
 
-
-    #Calcul du score
-    scoreJoueur1 = calcul_score()
-    scoreJoueur2 = calcul_score()
-
     #Détermination du vainqueur
     if not boucle:
         vainqueur = dernierJoueur
     else:
         vainqueur = "Personne"
+
+
+    #Calcul du score
+    scoreJoueur1 = calcul_score(vainqueur, nomJoueur1, nbrCoupsJoueur1)
+    scoreJoueur2 = calcul_score(vainqueur, nomJoueur2, nbrCoupsJoueur2)
+
+
+    #Sauvegarde du score
+    sauvegarde_score_joueur("morpion", nomJoueur1, scoreJoueur1)
+    sauvegarde_score_joueur("morpion", nomJoueur2, scoreJoueur2)
+
+
 
 
 
@@ -104,11 +111,14 @@ def morpion() -> None:
 
 
 
-def calcul_score() -> float:
+def calcul_score(vainqueur: str, nomJoueur: str, nbrCoups: int) -> float:
     """
     Cette fonction permet de calculer le score d'un joueur.
 
     Args:
+        vainqueur (str): Nom du joueur vainqueur.
+        nomJoueur (str): Nom du joueur.
+        nbrCoups (int): Nombre de coups du joueur.
 
 
     Returns:
@@ -116,12 +126,17 @@ def calcul_score() -> float:
     """
 
     #Déclaration des variables
+    score: float = 0
 
 
     #Calcul du score
+    if vainqueur == nomJoueur:
+        score = 5*(nbrCoups - 1/nbrCoups)
+    else:
+        score = 2.5*(nbrCoups - 1/nbrCoups)
 
 
-    return 0
+    return round(score, 2)
 
 
 
