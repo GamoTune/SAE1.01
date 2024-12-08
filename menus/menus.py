@@ -142,6 +142,8 @@ def affichage_score(jeu: str):
     #Déclaration des variables
     scores: dict
     liste_affichage: list[str] = []
+    joueur: str
+    i: int
 
     #Charchement des scores
     scores = charger_score(jeu)
@@ -189,6 +191,7 @@ def affichage_relges(jeu: str):
     #Déclaration des variables
     chemin: str
     fichier: list[str]
+    line: str
 
 
     #Chargement du fichier

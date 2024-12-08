@@ -1,5 +1,9 @@
+########################################################################################
+#Ce fichier contient le jeu du morpion
+########################################################################################
+
 #Importation des fonctions
-import sys, os
+import sys
 sys.path.append("./utilitaires")
 from utils import input_entier, login_joueur, clear_console, input_choix, sauvegarde_score_joueur #type: ignore
 
@@ -151,6 +155,9 @@ def affichage_grille(grille: list[list[str]]) -> None:
         (None): Cette fonction ne retourne rien.
     """
 
+    #Déclaration des variables
+    i: int
+
     #Affichage de la grille
     print(f"|-  1  -|-  2  -|-  3  -|")
     for i in range(3):
@@ -218,6 +225,7 @@ def verification_jeu_continue(grille: list[list[str]]) -> bool:
     lignes: list[str]
     boucle: bool = True
     taille: int = 3
+    i: int
 
     #Vérification de la grille
     #Vérification des lignes 

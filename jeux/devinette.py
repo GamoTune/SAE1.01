@@ -3,7 +3,7 @@
 ########################################################################################
 
 #Importation des fonctions
-import sys, os
+import sys
 sys.path.append("./utilitaires")
 from utils import input_entier, login_joueur, clear_console, sauvegarde_score_joueur #type: ignore
 

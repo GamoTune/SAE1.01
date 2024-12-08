@@ -8,7 +8,7 @@ from allumettes import allumettes #type: ignore
 from morpion import morpion #type: ignore
 from devinette import devinette #type: ignore
 
-from utils import input_entier, login_joueur, clear_console, charger_score #type: ignore
+from utils import clear_console #type: ignore
 from menus import menu_principale, menu_score, menu_regle, affichage_score, affichage_relges #type: ignore
 
 
@@ -33,10 +33,7 @@ def rejouer() -> bool:
     return valeur
 
 
-
-
-
-
+#Le programme principal
 if __name__ == "__main__":
     choix: int
     boucle: bool = True

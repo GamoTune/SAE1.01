@@ -311,7 +311,7 @@ def tri_de_liste(tab: list) -> list:
     return tab
 
 
-def tri_dict_insertion(dico: dict) -> dict:
+def tri_dict_insertion(dico: dict[str, list[float]]) -> dict:
     """
     Fonction pour trier un dictionnaire par insertion
     Args:
@@ -324,6 +324,10 @@ def tri_dict_insertion(dico: dict) -> dict:
     #Déclaration des variables
     tab: list
     dico_trie: dict
+    i: list[float]
+    key: str
+    value: list[float]
+
 
     #Tri par insertion
     tab = tri_de_liste(list(dico.values()))
