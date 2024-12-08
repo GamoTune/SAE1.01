@@ -227,10 +227,3 @@ def Calcul_ScoreJ2(coups:int, limite:int) ->int :
     score = score + round(20/100*limite)
     score =  int(score * 1/coups)
     return score
-
-
-
-
-
-
-devinette()

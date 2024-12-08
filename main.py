@@ -6,9 +6,10 @@ sys.path.append("menus")
 
 from allumettes import allumettes #type: ignore
 from morpion import morpion #type: ignore
+from devinette import devinette #type: ignore
 
-from utils import input_entier, login_joueur, clear_console, charger_score#type: ignore 
-from menus import menu_principale, menu_score, affichage_score #type: ignore
+from utils import input_entier, login_joueur, clear_console, charger_score #type: ignore
+from menus import menu_principale, menu_score, menu_regle, affichage_score, affichage_relges #type: ignore
 
 
 #La fonction rejouer permet de demander à l'utilisateur s'il veut rejouer
@@ -49,7 +50,7 @@ if __name__ == "__main__":
         match choix:
             case 1:
                 while boucle_de_jeu:
-                    #devinette()
+                    devinette()
                     boucle_de_jeu = rejouer()
                 boucle_de_jeu = True
             case 2:
@@ -79,7 +80,21 @@ if __name__ == "__main__":
                 clear_console()
                 boucle_de_jeu = True
             case 5:
-                print("Les règles ne sont pas encore disponibles")
+                while boucle_de_jeu:
+                    match menu_regle():
+                        case 1:
+                            affichage_relges("devinettes")
+                        case 2:
+                            affichage_relges("allumettes")
+                        case 3:
+                            affichage_relges("morpion")
+                        case 4:
+                            boucle_de_jeu = False
+                        case _:
+                            clear_console()
+                            print("Erreur de choix")
+                clear_console()
+                boucle_de_jeu = True
             case 6:
                 boucle = False
             case _:

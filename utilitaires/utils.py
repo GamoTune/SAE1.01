@@ -81,7 +81,7 @@ def input_entier(borneMin:int, borneMax:int, message:str, erreur:str) -> int:
                 input_ = input(message)
         else:
             print(erreur)
-            input_ = input(message)    
+            input_ = input(message)
     return nombre
 
 
@@ -134,19 +134,24 @@ def sauvegarde_score_joueur(jeu:str, joueur:str, valeur:float) -> None:
 
     #Déclaration des variables
     data: dict
-    scoresJoueurs: list
+    score: float
+    nb_parties: int
 
-    #Chargement des scores
+    #Chargement du score
     data = charger_score(jeu)
 
-    #Chargement des scores du joueur
-    scoresJoueurs = charger_score_joueur(jeu, joueur)
+    #Chargement du score du joueur
+    score = charger_score_joueur(jeu, joueur)[0]
+    nb_parties = charger_score_joueur(jeu, joueur)[1]
+
+
+    #Modification du score
+    score += valeur
+    nb_parties += 1
+
+    data[joueur] = [score, nb_parties]
 
     #Sauvegarde du score
-    scoresJoueurs.append(valeur)
-    data[joueur] = scoresJoueurs
-
-    #Sauvegarde des scores
     sauvegarde_data(jeu, data)
 
 
@@ -181,7 +186,7 @@ def charger_score(jeu:str) -> dict:
     return data
 
 #La fonction charger_score_joueur permet de charger les scores d'un joueur sur un jeu en particulier
-def charger_score_joueur(jeu:str, joueur:str) -> list:
+def charger_score_joueur(jeu:str, joueur:str) -> tuple[float, int]:
     """
     Fonction pour charger les scores d'un joueur sur un jeu en particulier
     Args:
@@ -189,24 +194,30 @@ def charger_score_joueur(jeu:str, joueur:str) -> list:
         joueur(str): Nom du joueur.
     
     Returns:
-        scoreJoueurs(dict): Dictionnaire contenant les scores du joueur.
+        score(float): Score du joueur.
     """
 
     #Déclaration des variables
     data: dict
-    scoreJoueurs: list
+    score: float
+    nb_parties: int
 
     #Chargement des scores
     data = charger_score(jeu)
 
     #Vérification de l'existence du joueur
     if joueur in data:
-        scoreJoueurs = data[joueur]
-    else: #Si le joueur n'existe pas, on renvoie une liste vide
-        scoreJoueurs = []
+        score = data[joueur][0]
+        nb_parties = data[joueur][1]
+    else: #Si le joueur n'existe pas, un score null
+        score = 0
+        nb_parties = 0
+
 
     #Retourne le dictionnaire des scores du joueur (vide si le joueur n'existe pas)
-    return scoreJoueurs
+    return score, nb_parties
+
+
 
 
 
@@ -226,6 +237,7 @@ def reset_score():
     #Réinitialisation des scores
     chemin = os.getcwd() + "/scores/"
     for fichier in os.listdir(chemin): #On parcourt tous les fichiers de scores pour les réinitialiser avec un dictionnaire vide
+        fichier = fichier.split(".")[0]
         sauvegarde_data(fichier, {})
     print("Les scores ont été réinitialisés avec succès !")
 
@@ -299,23 +311,25 @@ def tri_de_liste(tab: list) -> list:
     return tab
 
 
-def trier_scores(scores: dict) -> dict:
+def tri_dict_insertion(dico: dict) -> dict:
     """
-    Fonction pour trier un dictionnaire de scores par ordre décroissant des scores
+    Fonction pour trier un dictionnaire par insertion
     Args:
-        scores(dict): Dictionnaire contenant les scores des joueurs.
+        dico(dict): Dictionnaire à trier.
 
     Returns:
-        dict: Dictionnaire trié par ordre décroissant des scores.
+        dico(dict): Dictionnaire trié.
     """
-    # Calculer la somme des scores pour chaque joueur
-    scores_sommes = {joueur: sum(score) for joueur, score in scores.items()}
-    
-    # Trier les joueurs par ordre décroissant des scores
-    joueurs_tries = tri_de_liste(list(scores_sommes.items()))
-    joueurs_tries.reverse()  # Inverser pour obtenir l'ordre décroissant
 
-    # Reconstituer le dictionnaire trié
-    scores_tries = {joueur: scores[joueur] for joueur, _ in joueurs_tries}
-    
-    return scores_tries
+    #Déclaration des variables
+    tab: list
+    dico_trie: dict
+
+    #Tri par insertion
+    tab = tri_de_liste(list(dico.values()))
+    dico_trie = {}
+    for i in tab:
+        for key, value in dico.items():
+            if value == i:
+                dico_trie[key] = value
+    return dico_trie
