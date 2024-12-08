@@ -28,7 +28,7 @@ def rejouer() -> bool:
     valeur: bool
 
     #Demande à l'utilisateur s'il veut rejouer
-    valeur = True if input("Voulez-vous rejouer ? (o/n) : ") == "o" else False
+    valeur = True if input("Voulez-vous rejouer ? (o/n) : ").casefold() == "o" else False
     clear_console()
     return valeur
 

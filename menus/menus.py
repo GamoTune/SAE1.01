@@ -195,7 +195,7 @@ def affichage_relges(jeu: str):
     chemin = os.getcwd() + "/regles/" + jeu + ".txt"
     print(chemin)
     if os.path.exists(chemin):
-        with open(chemin, "r") as f:
+        with open(chemin, "r", encoding="utf-8") as f:
             fichier = f.readlines()
     else:
         fichier = ["Le fichier de règles n'existe pas"]
