@@ -81,7 +81,7 @@ def input_entier(borneMin:int, borneMax:int, message:str, erreur:str) -> int:
                 input_ = input(message)
         else:
             print(erreur)
-            nombre = int(input(message))
+            input_ = input(message)    
     return nombre
 
 
