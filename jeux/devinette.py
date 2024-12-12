@@ -131,7 +131,7 @@ def devinette() ->None:
     print(f"{joueur1} vous avez trichez {nbTriche} fois")
 
     #Assignation des scores
-    scoreJ1 = Calcul_scoreJ1(coup, nbTriche)
+    scoreJ1 = Calcul_scoreJ1(coup, nbTriche, limite)
     scoreJ2 = Calcul_ScoreJ2(coup, limite)
 
     if tricheGagn == True :
@@ -189,7 +189,7 @@ def rappel (limite:int, proposition:int)  ->None:
 
 
 #calculs des scores
-def Calcul_scoreJ1(coups:int,nbtriche:int) ->int :
+def Calcul_scoreJ1(coups:int,nbtriche:int, limite) ->int :
     """
     Cette fonction permet de calculer le score du joueur 1
     
@@ -201,10 +201,12 @@ def Calcul_scoreJ1(coups:int,nbtriche:int) ->int :
         score(int): Cette fonction retourne le score du joueur 1
     """
     score : int
-    score = 98
+    score = 58
 
     score = score- nbtriche*10
-    score = score + coups*2
+    score = score + coups*3
+    score = score - round(40/100*limite)
+
     return score
 
 
@@ -222,8 +224,8 @@ def Calcul_ScoreJ2(coups:int, limite:int) ->int :
         score(int): Cette fonction retourne le score du joueur 2
     """
     score : int
-    score = 125
+    score = 150
 
-    score = score + round(20/100*limite)
+    score = score + round(40/100*limite)
     score =  int(score * 1/coups)
     return score
