@@ -28,15 +28,13 @@ def devinette() ->None:
     coup : int
     nombre : int
     choix : int
-    gagné : bool
     limite : int
     choix : int
     proposition : int
+    gagné : bool
 
     scoreJ1 : int
     scoreJ2 : int
-
-
 
     nbTriche : int
     triche_detecte : bool
@@ -70,7 +68,6 @@ def devinette() ->None:
         #Proposition du joueur 2
         proposition = input_entier(0, limite, f"{joueur2}, faites une proposition : ", "Erreur, le nombre rentré n'est pas compris dans la limite : ")
         coup = coup+1
-
 
 
         #Initialisation du tour du joueur 1
@@ -196,6 +193,7 @@ def Calcul_scoreJ1(coups:int,nbtriche:int, limite) ->int :
     Args:
         coups(int): C'est le nombre de coups que le joueur 2 a mis pour trouver le nombre
         nbtriche(int): C'est le nombre de tricherie du joueur 1
+        limite(int): C'est la limite du nombre que le joueur 1 a choisi
         
     Returns:
         score(int): Cette fonction retourne le score du joueur 1
