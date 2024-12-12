@@ -4,8 +4,8 @@
 
 #Importation des fonctions
 import sys
-sys.path.append("./utilitaires")
-from utils import input_entier, login_joueur, clear_console, sauvegarde_score_joueur #type: ignore
+sys.path.append("./")
+from utilitaires.utils import input_entier, login_joueur, clear_console, sauvegarde_score_joueur
 
 #Programme principal du jeu
 def allumettes() -> None:
@@ -31,7 +31,6 @@ def allumettes() -> None:
     nbrCoupsJoueur1: int = 0
     nbrCoupsJoueur2: int = 0
 
-    dernierJoueur: str = ""
     avantDernierJoueur: str = ""
     vainqueur: str = ""
 
@@ -53,14 +52,12 @@ def allumettes() -> None:
 
         #Tour du joueur 1
         if nbrAllumettes > 0:
-            dernierJoueur = nomJoueur1
             avantDernierJoueur = nomJoueur2
             nbrAllumettes -= tour(nomJoueur1, nbrAllumettes)
             nbrCoupsJoueur1 += 1
         
         #Tour du joueur 2
         if nbrAllumettes > 0:
-            dernierJoueur = nomJoueur2
             avantDernierJoueur = nomJoueur1
             nbrAllumettes -= tour(nomJoueur2, nbrAllumettes)
             nbrCoupsJoueur2 += 1

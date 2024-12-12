@@ -1,15 +1,13 @@
 #Importation des modules
 import sys, os
-sys.path.append("jeux")
-sys.path.append("utilitaires")
-sys.path.append("menus")
+sys.path.append("./")
 
-from allumettes import allumettes #type: ignore
-from morpion import morpion #type: ignore
-from devinette import devinette #type: ignore
+from jeux.allumettes import allumettes
+from jeux.morpion import morpion
+from jeux.devinette import devinette
 
-from utils import clear_console #type: ignore
-from menus import menu_principale, menu_score, menu_regle, affichage_score, affichage_relges #type: ignore
+from utilitaires.utils import clear_console
+from menus.menus import menu_principale, menu_score, menu_regle, affichage_score, affichage_relges
 
 
 #La fonction rejouer permet de demander à l'utilisateur s'il veut rejouer

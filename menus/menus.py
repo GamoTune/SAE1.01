@@ -1,6 +1,6 @@
 import sys, os
-sys.path.append("./utilitaires")
-from utils import input_entier, login_joueur, clear_console, charger_score, tri_dict_insertion #type: ignore
+sys.path.append("./")
+from utilitaires.utils import input_entier, login_joueur, clear_console, charger_score, tri_dict_insertion
 
 #Menu des choix principaux
 
