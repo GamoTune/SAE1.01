@@ -201,10 +201,16 @@ def Calcul_scoreJ1(coups:int,nbtriche:int, limite) ->int :
     score : int
     score = round(30+10/100*limite)
 
-    score = score- nbtriche*10
     score = score + coups*3
 
-    return score
+    #si le joueur a triché
+    if nbtriche != 0:
+        score = score - (nbtriche + round(2/100*limite))*5
+        if score <= 30:
+            score = 30
+
+
+    return max(0, score) #empêche le score d'être négatif
 
 
 
