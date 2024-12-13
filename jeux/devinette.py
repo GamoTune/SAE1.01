@@ -229,4 +229,4 @@ def Calcul_ScoreJ2(coups:int, limite:int) ->int :
     score : int
     score = round(50+50/100*limite)
     score =  int(score - (2*coups))
-    return score
+    return max(0, score) #empêche le score d'être négatif
