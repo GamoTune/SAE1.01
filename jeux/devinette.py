@@ -199,11 +199,10 @@ def Calcul_scoreJ1(coups:int,nbtriche:int, limite) ->int :
         score(int): Cette fonction retourne le score du joueur 1
     """
     score : int
-    score = 58
+    score = round(30+10/100*limite)
 
     score = score- nbtriche*10
     score = score + coups*3
-    score = score - round(40/100*limite)
 
     return score
 
@@ -222,8 +221,6 @@ def Calcul_ScoreJ2(coups:int, limite:int) ->int :
         score(int): Cette fonction retourne le score du joueur 2
     """
     score : int
-    score = 150
-
-    score = score + round(40/100*limite)
-    score =  int(score * 1/coups)
+    score = round(50+50/100*limite)
+    score =  int(score - (2*coups))
     return score
