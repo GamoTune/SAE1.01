@@ -32,7 +32,6 @@ def morpion() -> None:
     nbrCoupsJoueur2: int = 0
 
     dernierJoueur: str = ""
-    avantDernierJoueur: str = ""
     vainqueur: str = ""
 
     scoreJoueur1: float = 0
