@@ -7,6 +7,13 @@ import sys
 sys.path.append("./")
 from utilitaires.utils import input_entier, login_joueur, clear_console, sauvegarde_score_joueur
 
+#Structure du joueur
+class Joueur:
+    nom: str
+    score: float = 0
+    nbAllumettes: int = 0
+    nbCoups: int = 0
+
 #Programme principal du jeu
 def allumettes() -> None:
     """
@@ -20,25 +27,25 @@ def allumettes() -> None:
     """
     
     #Déclaration des variables à utilisé
-    nomJoueur1: str
-    nomJoueur2: str
+
+    joueur1: Joueur = Joueur()
+    joueur2: Joueur = Joueur()
+
+    nomJoueur1, nomJoueur2 = login_joueur()
+
+    joueur1.nom = nomJoueur1
+    joueur2.nom = nomJoueur2
+
 
     nbrAllumettesDepart: int = 20
     nbrAllumettes: int = 20
-    nbrAllumettesJoueur1: int = 0 #Nombre d'allumettes retirées par le joueur 1
-    nbrAllumettesJoueur2: int = 0 #Nombre d'allumettes retirées par le joueur 2
-
-    nbrCoupsJoueur1: int = 0
-    nbrCoupsJoueur2: int = 0
 
     avantDernierJoueur: str = ""
     vainqueur: str = ""
 
-    scoreJoueur1: float = 0
-    scoreJoueur2: float = 0
 
 
-    nomJoueur1, nomJoueur2 = login_joueur()
+
 
     #Début du jeu
 
@@ -52,15 +59,15 @@ def allumettes() -> None:
 
         #Tour du joueur 1
         if nbrAllumettes > 0:
-            avantDernierJoueur = nomJoueur2
-            nbrAllumettes -= tour(nomJoueur1, nbrAllumettes)
-            nbrCoupsJoueur1 += 1
+            avantDernierJoueur = joueur2.nom
+            nbrAllumettes -= tour(joueur1.nom, nbrAllumettes)
+            joueur1.nbCoups += 1
         
         #Tour du joueur 2
         if nbrAllumettes > 0:
-            avantDernierJoueur = nomJoueur1
-            nbrAllumettes -= tour(nomJoueur2, nbrAllumettes)
-            nbrCoupsJoueur2 += 1
+            avantDernierJoueur = joueur1.nom
+            nbrAllumettes -= tour(joueur2.nom, nbrAllumettes)
+            joueur2.nbCoups += 1
 
         if nbrAllumettes == 0:
             vainqueur = avantDernierJoueur
@@ -68,12 +75,12 @@ def allumettes() -> None:
 
     #Calcul du score
 
-    if vainqueur == nomJoueur1:
-        scoreJoueur1 = calcul_score(nbrAllumettesDepart, nbrAllumettesJoueur1, nbrCoupsJoueur1, 1)
-        scoreJoueur2 = calcul_score(nbrAllumettesDepart, nbrAllumettesJoueur2, nbrCoupsJoueur2, 0)
+    if vainqueur == joueur1.nom:
+        joueur1.score = calcul_score(nbrAllumettesDepart, joueur1.nbAllumettes, joueur1.nbCoups, 1)
+        joueur2.score = calcul_score(nbrAllumettesDepart, joueur2.nbAllumettes, joueur2.nbCoups, 0)
     else:
-        scoreJoueur1 = calcul_score(nbrAllumettesDepart, nbrAllumettesJoueur1, nbrCoupsJoueur1, 0)
-        scoreJoueur2 = calcul_score(nbrAllumettesDepart, nbrAllumettesJoueur2, nbrCoupsJoueur2, 1)
+        joueur1.score = calcul_score(nbrAllumettesDepart, joueur1.nbAllumettes, joueur1.nbCoups, 0)
+        joueur2.score = calcul_score(nbrAllumettesDepart, joueur2.nbAllumettes, joueur2.nbCoups, 1)
 
 
     #Fin du jeu
@@ -82,20 +89,20 @@ def allumettes() -> None:
     print("                        Fin du jeu")
     print()
     if vainqueur == nomJoueur1:
-        print(f"Bravo {nomJoueur1} vous avez gagné en {nbrCoupsJoueur1} coups.")
-        print(f"{nomJoueur2} vous avez perdu en {nbrCoupsJoueur2} coups.")
+        print(f"Bravo {joueur1.nom} vous avez gagné en {joueur1.nbCoups} coups.")
+        print(f"{joueur2.nom} vous avez perdu en {joueur2.nbCoups} coups.")
     else:
-        print(f"Bravo {nomJoueur2} vous avez gagné en {nbrCoupsJoueur2} coups.")
-        print(f"{nomJoueur1} vous avez perdu en {nbrCoupsJoueur1} coups.")
+        print(f"Bravo {joueur2.nom} vous avez gagné en {joueur2.nbCoups} coups.")
+        print(f"{joueur1.nom} vous avez perdu en {joueur1.nbCoups} coups.")
     print()
-    print(f"Score de {nomJoueur1} : {scoreJoueur1}")
-    print(f"Score de {nomJoueur2} : {scoreJoueur2}")
+    print(f"Score de {joueur1.nom} : {joueur1.score}")
+    print(f"Score de {joueur2.nom} : {joueur2.score}")
     print()
     print("\\-----------------------------------------------------------/")
 
     #Sauvegarde des scores
-    sauvegarde_score_joueur("allumettes", nomJoueur1, scoreJoueur1)
-    sauvegarde_score_joueur("allumettes", nomJoueur2, scoreJoueur2)
+    sauvegarde_score_joueur("allumettes", joueur1.nom, joueur1.score)
+    sauvegarde_score_joueur("allumettes", joueur2.nom, joueur2.score)
 
 
 

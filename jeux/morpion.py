@@ -7,6 +7,13 @@ import sys
 sys.path.append("./")
 from utilitaires.utils import input_entier, login_joueur, clear_console, input_choix, sauvegarde_score_joueur
 
+#Structure du joueur
+class Joueur:
+    nom: str
+    score: float = 0
+    nbCoups: int = 0
+    signe: str = ""
+
 #Programme principal du jeu
 def morpion() -> None:
     """
@@ -22,49 +29,40 @@ def morpion() -> None:
     #Déclaration des variables à utilisé
     boucle: bool = True
 
-    nomJoueur1: str
-    nomJoueur2: str
+    joueur1: Joueur = Joueur()
+    joueur2: Joueur = Joueur()
 
-    signeJoueur1: str
-    signeJoueur2: str
-
-    nbrCoupsJoueur1: int = 0
-    nbrCoupsJoueur2: int = 0
+    joueur1.nom, joueur2.nom = login_joueur()
 
     dernierJoueur: str = ""
-    avantDernierJoueur: str = ""
     vainqueur: str = ""
-
-    scoreJoueur1: float = 0
-    scoreJoueur2: float = 0
 
     grille = [[" " for _ in range(3)] for _ in range(3)]
 
 
     #Initialisation du jeu
 
-    nomJoueur1, nomJoueur2 = login_joueur()
-    signeJoueur1 = input_choix(["X", "O"], f"Veuillez choisir un signe pour {nomJoueur1} (X, O) : ", f"Veuillez choisir un signe pour {nomJoueur1} (X, O) : ")
-    signeJoueur2 = "X" if signeJoueur1 == "O" else "O"
+    joueur1.signe = input_choix(["X", "O"], f"Veuillez choisir un signe pour {joueur1.nom} (X, O) : ", f"Veuillez choisir un signe pour {joueur1.nom} (X, O) : ")
+    joueur2.signe = "X" if joueur1.signe == "O" else "O"
 
     #Début du jeu
 
 
     #Tant que la grille n'est pas pleine
-    while (nbrCoupsJoueur1 + nbrCoupsJoueur2) < 9 and boucle:
+    while (joueur1.nbCoups + joueur2.nbCoups) < 9 and boucle:
 
         clear_console()
         print("/-----------------------------------------------------------\\")
         print("                      Jeu du morpion")
 
-        dernierJoueur = nomJoueur1 if (nbrCoupsJoueur1 + nbrCoupsJoueur2) % 2 == 0 else nomJoueur2
+        dernierJoueur = joueur1.nom if (joueur1.nbCoups + joueur2.nbCoups) % 2 == 0 else joueur2.nom
 
-        if dernierJoueur == nomJoueur1:
-            grille = tour(nomJoueur1, signeJoueur1, grille)
-            nbrCoupsJoueur1 += 1
+        if dernierJoueur == joueur1.nom:
+            grille = tour(joueur1, grille)
+            joueur1.nbCoups += 1
         else:
-            grille = tour(nomJoueur2, signeJoueur2, grille)
-            nbrCoupsJoueur2 += 1
+            grille = tour(joueur2, grille)
+            joueur2.nbCoups += 1
         
         boucle = verification_jeu_continue(grille)
 
@@ -77,13 +75,13 @@ def morpion() -> None:
 
 
     #Calcul du score
-    scoreJoueur1 = calcul_score(vainqueur, nomJoueur1, nbrCoupsJoueur1)
-    scoreJoueur2 = calcul_score(vainqueur, nomJoueur2, nbrCoupsJoueur2)
+    joueur1.score = calcul_score(vainqueur, joueur1.nom, joueur1.nbCoups)
+    joueur2.score = calcul_score(vainqueur, joueur2.nom, joueur2.nbCoups)
 
 
     #Sauvegarde du score
-    sauvegarde_score_joueur("morpion", nomJoueur1, scoreJoueur1)
-    sauvegarde_score_joueur("morpion", nomJoueur2, scoreJoueur2)
+    sauvegarde_score_joueur("morpion", joueur1.nom, joueur1.score)
+    sauvegarde_score_joueur("morpion", joueur2.nom, joueur2.score)
 
 
 
@@ -96,19 +94,19 @@ def morpion() -> None:
     print("/-----------------------------------------------------------\\")
     print("                        Fin du jeu")
     print()
-    if vainqueur == nomJoueur1:
-        print(f"Bravo {nomJoueur1} vous avez gagné en {nbrCoupsJoueur1} coups.")
-        print(f"{nomJoueur2} vous avez perdu en {nbrCoupsJoueur2} coups.")
-    elif vainqueur == nomJoueur2:
-        print(f"Bravo {nomJoueur2} vous avez gagné en {nbrCoupsJoueur2} coups.")
-        print(f"{nomJoueur1} vous avez perdu en {nbrCoupsJoueur1} coups.")
+    if vainqueur == joueur1.nom:
+        print(f"Bravo {joueur1.nom} vous avez gagné en {joueur1.nbCoups} coups.")
+        print(f"{joueur2.nom} vous avez perdu en {joueur2.nbCoups} coups.")
+    elif vainqueur == joueur2.nom:
+        print(f"Bravo {joueur2.nom} vous avez gagné en {joueur2.nbCoups} coups.")
+        print(f"{joueur1.nom} vous avez perdu en {joueur1.nbCoups} coups.")
     else:
         print("Match nul")
-        print(f"{nomJoueur1} a joué {nbrCoupsJoueur1} coups et à gagné {scoreJoueur1} points.")
-        print(f"{nomJoueur2} a joué {nbrCoupsJoueur2} coups et à gagné {scoreJoueur2} points.")
+        print(f"{joueur1.nom} a joué {joueur1.nbCoups} coups et à gagné {joueur1.score} points.")
+        print(f"{joueur2.nom} a joué {joueur2.nbCoups} coups et à gagné {joueur2.score} points.")
     print()
-    print(f"Score de {nomJoueur1} : {scoreJoueur1}")
-    print(f"Score de {nomJoueur2} : {scoreJoueur2}")
+    print(f"Score de {joueur1.nom} : {joueur1.score}")
+    print(f"Score de {joueur2.nom} : {joueur2.score}")
     print()
     print("\\-----------------------------------------------------------/")
 
@@ -173,7 +171,7 @@ def affichage_grille(grille: list[list[str]]) -> None:
 
 
 #Fonction pour afficher le tour du joueur
-def tour(joueur:str, signe:str, grille: list[list[str]]) -> list[list[str]]:
+def tour(joueur:Joueur, grille: list[list[str]]) -> list[list[str]]:
     """
     Cette fonction permet d'afficher le tour du joueur et le nombre d'allumettes restantes.
 
@@ -191,7 +189,7 @@ def tour(joueur:str, signe:str, grille: list[list[str]]) -> list[list[str]]:
     colonne: int
 
     #Affichage du tour du joueur
-    print(f"Tour de {joueur}")
+    print(f"Tour de {joueur.nom}")
     print()
     affichage_grille(grille)
     print()
@@ -205,7 +203,7 @@ def tour(joueur:str, signe:str, grille: list[list[str]]) -> list[list[str]]:
         ligne, colonne = input_entier(1, 3, "Veuillez choisir une ligne (1, 2, 3) : ", "Veuillez choisir une ligne (1, 2, 3) : "), input_entier(1, 3, "Veuillez choisir une colonne (1, 2, 3) : ", "Veuillez choisir une colonne (1, 2, 3) : ")
 
     #Modification de la grille
-    grille[ligne-1][colonne-1] = signe
+    grille[ligne-1][colonne-1] = joueur.signe
 
     return grille
 
