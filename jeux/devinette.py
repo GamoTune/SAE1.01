@@ -208,8 +208,7 @@ def Calcul_scoreJ1(coups:int,nbtriche:int, limite) ->int :
         score = score - (nbtriche + round(2/100*limite))*5
         if score <= 30:
             score = 30
-
-
+    
     return max(0, score) #empêche le score d'être négatif
 
 
@@ -228,5 +227,6 @@ def Calcul_ScoreJ2(coups:int, limite:int) ->int :
     """
     score : int
     score = round(50+50/100*limite)
-    score =  int(score - (2*coups))
+    score = int(score - (2*coups))
+
     return max(0, score) #empêche le score d'être négatif
