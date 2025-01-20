@@ -20,7 +20,7 @@ Ce projet est réalisé dans le cadre de la SAE1.01. Il a pour objectif de crée
 ## Utilisation
 1. Lancez l'application : 
     ```bash
-    bash python3 main.py 
+    python3 main.py 
     ```
 
 ## Auteurs
